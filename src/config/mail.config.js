@@ -196,7 +196,7 @@ function mailTemplate(token, URL) {
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Utiliza el boton que encontraras en la parte interior, sino no funciona. Si no creaste una cuenta en <a href="http://localhost:3001/sign_method/client/${token}">SerCyn</a>, Puedes eliminar de forma segura este mensaje e email.</p>
+              <p style="margin: 0;">Utiliza el boton que encontraras en la parte interior, sino no funciona. Si no creaste una cuenta en <a href="https://sercynapiserver20-production.up.railway.app/sign_method/client/${token}">SerCyn</a>, Puedes eliminar de forma segura este mensaje e email.</p>
             </td>
           </tr>
           <!-- end copy -->
