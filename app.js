@@ -51,6 +51,7 @@ app.use(
       "http://localhost:3002",
       "http://localhost:5173",
       "https://sercyn-app.surge.sh",
+      "http://sercyn-app.surge.sh",
     ],
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     credentials: true,

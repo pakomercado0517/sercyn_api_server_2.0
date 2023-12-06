@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { generateAuthToken, verifyToken } = require("../config/jwt.config");
 const googleAuthFunctions = require("../utils/googleAuth");
 const mailingFunctions = require("../utils/mailing");
-const URL = "http://localhost:3001/sign_method/client";
+const URL = "https://sercyn-app.surge.sh/sign_method/client";
 
 module.exports = {
   clientLogin: async (req, res, next) => {
@@ -86,7 +86,7 @@ module.exports = {
   },
   mailValidation: async (req, res, next) => {
     const { token } = req.params;
-    const PATH_URL = "http://localhost:5173";
+    const PATH_URL = "https://sercyn-app.surge.sh";
     try {
       const mailUserStatusUpdated = await mailingFunctions.validation(
         Client,
