@@ -1,0 +1,140 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require("../app");
+var debug = require("debug")("sercyn-api:server");
+var http = require("http");
+const { conn } = require("../src/db");
+const { bulkUsers, bulkCompanies } = require("../src/InitialDatabase/User");
+const bulkBoats = require("../src/InitialDatabase/Boat");
+const bulkDestination = require("../src/InitialDatabase/Destination");
+const bulkPrice = require("../src/InitialDatabase/Price");
+const bulkClients = require("../src/InitialDatabase/Client");
+const bulkRatings = require("../src/InitialDatabase/Rating");
+const bulkTransactions = require("../src/InitialDatabase/Transaction");
+// const socketServer = require("../src/config/socket");
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || "3001");
+app.set("port", port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+// Create webSocket connection
+
+//socket.io connection server
+// socketServer(server);
+
+//This code block is creating a socket.io connection and setting up event listeners for the "connection" event. When a client connects to the server, the "connection" event is triggered and a socket object is created for that client.
+// io.on("connection", (socket) => {
+//   console.log("connected");
+//   socket.on("joinRoom", (room) => {
+//     socket.join(room);
+//     console.log(`Connected to room ${room}`);
+//     socket.emit("roomJoined", `Te has unido a la sala ${room}`);
+//   });
+// socket.on("clientMessage", (room, data) => {
+//   console.log("data", data);
+//   io.to(room).emit("newMessage", data);
+// });
+
+//   io.on("chat", (data) => {
+//     console.log(data);
+//     io.to(data.userId).emit("new_message", data);
+//   });
+
+//   io.on("disconnect", () => console.log("user disconnected"));
+// });
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+// io.on("connection", (socket) => {
+//   console.log("connected");
+//   socket.on("chat_message", (data) => {
+//     io.emit("chat_message", data);
+//   });
+// });
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+//This code block is creating a listener function for the HTTP server's "listening" event, which is triggered when the server starts listening for incoming requests. The function retrieves the server's address and binds it to a variable, then logs a message to the console indicating that the server is listening on that address.
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
+}
+
+conn.sync({ force: true }).then(async () => {
+  debug(`base de datos creada y lista en el puerto ${port}`);
+  await bulkUsers();
+  await bulkCompanies();
+  await bulkBoats();
+  await bulkDestination();
+  await bulkPrice();
+  await bulkClients();
+  await bulkRatings();
+  await bulkTransactions();
+});
