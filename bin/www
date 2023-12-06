@@ -127,7 +127,7 @@ function onListening() {
   debug("Listening on " + bind);
 }
 
-conn.sync({ force: true }).then(async () => {
+conn.sync({ force: false }).then(async () => {
   debug(`base de datos creada y lista en el puerto ${port}`);
   await bulkUsers();
   await bulkCompanies();
