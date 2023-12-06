@@ -17,7 +17,7 @@ const sequelize = new Sequelize(`${DB_LOCAL_URL}`, {
 const basename = path.basename(__filename);
 const modelDefiners = [];
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, "/models"))
+fs.readdirSync(path.join(__dirname, "/Models"))
   .filter(
     (file) =>
       file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
