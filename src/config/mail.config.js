@@ -1,6 +1,7 @@
 // create reusable transporter object using the default SMTP transport
 const nodemailer = require("nodemailer");
-const { AUTH_USER, AUTH_PASS, AUTH_HOST, AUTH_PORT } = process.env;
+const { AUTH_USER, AUTH_PASS, AUTH_HOST, AUTH_PORT, BACK_HOST, FRONT_HOST } =
+  process.env;
 
 let transporter = nodemailer.createTransport({
   host: AUTH_HOST,
@@ -196,7 +197,7 @@ function mailTemplate(token, URL) {
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Utiliza el boton que encontraras en la parte interior, sino no funciona. Si no creaste una cuenta en <a href="https://sercynapiserver20-production.up.railway.app/sign_method/client/${token}">SerCyn</a>, Puedes eliminar de forma segura este mensaje e email.</p>
+              <p style="margin: 0;">Utiliza el boton que encontraras en la parte interior, sino no funciona. Si no creaste una cuenta en <a href="${BACK_HOST}/sign_method/client/${token}">SerCyn</a>, Puedes eliminar de forma segura este mensaje e email.</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -225,7 +226,7 @@ function mailTemplate(token, URL) {
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
               <p style="margin: 0;">Si el botón no funciona, copia y pega la siguiente url en tu navegador:</p>
-              <p style="margin: 0;"><a href="https://sercynapiserver20-production.up.railway.app/client/${token}" target="_blank">https://sercynapiserver20-production.up.railway.app/sign_method/client/${token}</a></p>
+              <p style="margin: 0;"><a href="${BACK_HOST}/sign_method/client/${token}" target="_blank">${BACK_HOST}/sign_method/client/${token}</a></p>
             </td>
           </tr>
           <!-- end copy -->
